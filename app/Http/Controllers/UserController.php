@@ -20,12 +20,16 @@ class UserController extends Controller
 
         $email = $request['email'];
         $first_name = $request['first_name'];
+        $last_name = $request['last_name']
         $password = bcrypt($request['password']);
+        $phone = $request['phone'];
 
         $user = new User();
         $user->email = $email;
         $user->first_name = $first_name;
+        $user->last_name = $last_name;
         $user->password = $password;
+        $user->phone = $phone;
 
         $user->save();
 
