@@ -20,9 +20,10 @@ class UserController extends Controller
 
         $email = $request['email'];
         $first_name = $request['first_name'];
-        $last_name = $request['last_name']
-        $password = bcrypt($request['password']);
+        $last_name = $request['last_name'];
         $phone = $request['phone'];
+        $password = bcrypt($request['password']);
+        
 
         $user = new User();
         $user->email = $email;
@@ -70,10 +71,22 @@ class UserController extends Controller
 
         $user = Auth::user();
         $old_name = $user->first_name;
-        $user->first_name = $request['first_name'];
+        $old_name = $user->last_name;
+        $old_name = $user->phone;
+        $password = $user->password;
+        $email = $user->email;
+        
+
+        $user-> first_name = $request['first_name'];
+        $user-> last_name = $request['last_name'];
+        $user-> phone = $request['phone'];
+        $user->email = $request['email'];
+        $user->password = bcrypt($request['password']);
+
         $user->update();
         $file = $request->file('image');
         $filename = $request['first_name'] . '-' . $user->id . '.jpg';
+
         $old_filename = $old_name . '-' . $user->id . '.jpg';
         $update = false;
         if (Storage::disk('local')->has($old_filename)) {
